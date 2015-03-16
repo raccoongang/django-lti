@@ -5,8 +5,8 @@ Installation
 ------------
 ::
 
-	python setup.py sdist && pip install dist/django-lti-0.1.tar.gz --upgrade
-	pip install -r requirments.txt
+    python setup.py sdist && pip install dist/django-lti-0.1.tar.gz --upgrade
+    pip install -r requirments.txt
 
 
 Configuration
@@ -16,11 +16,20 @@ Add 'lti' app and some params to your settings.py:
 ::
 
     INSTALLED_APPS = (
-    ....
-    'lti',
-    ....
+        ....
+        'lti',
+        ....
     )
 
     # LTI Parameters
     CONSUMER_KEY = "__consumer_key__"
     LTI_SECRET = "__lti_secret__"
+
+Include 'lti.urls' to project urls.py:
+::
+
+    urlpatterns = patterns('',
+        ....
+        url(r'^lti/', include('lti.urls')),
+        ....
+    )
