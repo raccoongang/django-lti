@@ -13,7 +13,7 @@ setup(
         description='LTI django application designed to work with socraticqs2',
         long_description=README,
         author='Alexander Kryklia, Maksim Sokolskiy',
-        author_email='alex.kryklia@raccoongang.com, maksim.sokolskiy@raccoongang.com',
+        author_email='kryklia@gmail.com, misokolsky@gmail.com',
         classifiers=[
                     'Environment :: Web Environment',
                     'Framework :: Django',

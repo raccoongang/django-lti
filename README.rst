@@ -1,2 +1,26 @@
 # django-lti
 LTI django application designed to work with socraticqs2
+
+Installation
+------------
+::
+
+	python setup.py sdist && pip install dist/django-lti-0.1.tar.gz --upgrade
+	pip install -r requirments.txt
+
+
+Configuration
+-------------
+
+Add 'lti' app and some params to your settings.py:
+::
+
+    INSTALLED_APPS = (
+    ....
+    'lti',
+    ....
+    )
+
+    # LTI Parameters
+    CONSUMER_KEY = "__consumer_key__"
+    LTI_SECRET = "__lti_secret__"
