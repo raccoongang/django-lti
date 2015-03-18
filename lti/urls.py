@@ -3,5 +3,5 @@ from django.utils import importlib
 
 
 urlpatterns = patterns('',
-    url(r'^/*$', 'lti.views.index', name='lti_index'),
+    url(r'^$', 'lti.views.lti_init', name='lti_init'),
 )
