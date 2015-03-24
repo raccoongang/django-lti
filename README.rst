@@ -24,7 +24,7 @@ Add 'lti' app and some params to your settings.py:
     # LTI Parameters
     CONSUMER_KEY = "__consumer_key__"
     LTI_SECRET = "__lti_secret__"
-    X_FRAME_OPTIONS = "ALLOW-FROM: *"
+    X_FRAME_OPTIONS = "GOFORIT"
     SECURE_PROXY_SSL_HEADER = ('HTTP_X_FORWARDED_PROTO', 'https')
 
 

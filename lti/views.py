@@ -47,23 +47,26 @@ def lti_init(request):
     session['LTI_POST'] = pickle.dumps(request_dict)
 
     '-------------------------------------------------------------------------------'
-    consumer_name = request_dict.get('tool_consumer_info_product_family_code', 'lti')
+    consumer_name = request_dict.get('ext_lms', 'lti')
 
     user_id = request_dict.get('user_id', None)
-    if not user_id:
+    course_id = request_dict.get('custom_course', None)
+    roles = request_dict.get('roles', None)
+    if not user_id or not course_id:
         return render_to_response("error.html",  RequestContext(request))
+    course_id = int(course_id)
 
     user, created = LTIUser.objects.get_or_create(user_id=user_id,
-                                                  consumer=consumer_name)
-    # TODO Decide what to do with 'request_dict' every request
-    user.extra_data = json.dumps(request_dict)
+                                                  consumer=consumer_name,
+                                                  course_id=course_id)
+    user.extra_data = json.dumps(request_dict) # TODO exclude not needed params
     user.save()
 
     if not user.is_linked:
         user.create_links()
 
     user.login(request)
-    user.enroll(request_dict)
+    user.enroll(roles, course_id)
     '-------------------------------------------------------------------------------'
 
     if settings.LTI_DEBUG:
@@ -72,8 +75,8 @@ def lti_init(request):
     if not is_valid:
         return render_to_response("error.html",  RequestContext(request))
 
-    if user.is_enrolled(request_dict):
-        return redirect(reverse('ct:unit_tasks_student', args=(request_dict.get('custom_course', None),
-                                                               request_dict.get('custom_unit', None),)))
+    if user.is_enrolled(roles, course_id):
+        # Redirect to course page
+        return redirect(reverse('ct:course_student', args=(course_id,)))
     else:
         return redirect(reverse('ct:home'))

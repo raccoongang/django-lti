@@ -18,7 +18,8 @@ class Migration(migrations.Migration):
                 ('id', models.AutoField(verbose_name='ID', serialize=False, auto_created=True, primary_key=True)),
                 ('user_id', models.CharField(max_length=255)),
                 ('consumer', models.CharField(max_length=64, blank=True)),
-                ('extra_data', models.CharField(max_length=1024)),
+                ('extra_data', models.TextField(max_length=1024)),
+                ('course_id', models.IntegerField()),
                 ('django_user', models.ForeignKey(to=settings.AUTH_USER_MODEL, null=True)),
             ],
             options={
@@ -27,6 +28,6 @@ class Migration(migrations.Migration):
         ),
         migrations.AlterUniqueTogether(
             name='ltiuser',
-            unique_together=set([('user_id', 'consumer')]),
+            unique_together=set([('user_id', 'consumer', 'course_id')]),
         ),
     ]
